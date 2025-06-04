@@ -1,4 +1,4 @@
--- Tabla de usuarios
+
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla de transacciones
+
 CREATE TABLE transactions (
     transaction_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(user_id),
@@ -24,12 +24,12 @@ CREATE TABLE transactions (
     CONSTRAINT positive_amount CHECK (amount > 0)
 );
 
--- Índices para mejorar el rendimiento
+
 CREATE INDEX idx_transactions_user_id ON transactions(user_id);
 CREATE INDEX idx_transactions_status ON transactions(status);
 CREATE INDEX idx_transactions_created_at ON transactions(created_at);
 
--- Procedimiento almacenado para registrar un nuevo usuario
+
 CREATE OR REPLACE PROCEDURE register_user(
     p_username VARCHAR(50),
     p_email VARCHAR(100),
@@ -44,7 +44,7 @@ BEGIN
 END;
 $$;
 
--- Procedimiento almacenado para iniciar una transacción
+
 CREATE OR REPLACE PROCEDURE start_transaction(
     p_user_id INTEGER,
     p_amount DECIMAL(10, 2),
